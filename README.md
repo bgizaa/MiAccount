@@ -1,2 +1,2 @@
 # MiAccount
-e-banking platform called *MiAccount*
+e-banking platform
