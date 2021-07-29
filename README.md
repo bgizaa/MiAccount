@@ -1,2 +1,1 @@
 # MiAccount
-*e-banking platform*
