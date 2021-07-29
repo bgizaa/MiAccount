@@ -6,7 +6,7 @@ app = Flask(__name__)
 api = Api(app)
 
 
-class HelloWorld(Resource):
+class ReturnData(Resource):
     def get(self):
         return {	'username': 'Jackson',
                  'email': 'jackson@gmail.com', }
