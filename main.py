@@ -14,13 +14,6 @@ users_put_args.add_argument("email",type=str,help="Email is required", required=
 
 
 
-users = {}
-
-
-accounts = {}
-
-
-
 def abort_if_user_doesnt_exist(user_id):
     if user_id not in users:
         abort(404, message ="User id is not valid")
@@ -66,8 +59,7 @@ def signUp():
 def login():
     abort_if_user_doesnt_exist(user_id)
     if name in args:
-        return 'Successfull login', 200
-        
+        return 'Successfull login', 200        
     return make_response("Couldn't verify!", 401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
 
 @app.route('/delete', methods=['DELETE'])
@@ -85,6 +77,7 @@ def deposit():
 
 @app.route('/checkbalance', methods=['POST'])
 def checkbalance():
+    result = AccountModel.query.get(balance)
     return {users[name], accounts[account], accounts[balance]}, 200
 
 @app.route('/transfer', methods=['POST'])
