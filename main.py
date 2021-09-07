@@ -46,12 +46,12 @@ class AccountsModel(db.Model):
 
 
 user_put_args = reqparse.RequestParser()
-user_put_args.add_argument("email", type=int, help="Email of the user", required=True)
-user_put_args.add_argument("password", type=int, help="Password of the user", required=True)
+user_put_args.add_argument("email", type=str, help="Email of the user", required=True)
+user_put_args.add_argument("password", type=str, help="Password of the user", required=True)
 
 user_update_args = reqparse.RequestParser()
-user_update_args.add_argument("email", type=int, help="Email of the user")
-user_update_args.add_argument("password", type=int, help="Password of the user")
+user_update_args.add_argument("email", type=str, help="Email of the user")
+user_update_args.add_argument("password", type=str, help="Password of the user")
 
 
 accounts_put_args = reqparse.RequestParser()
