@@ -61,14 +61,6 @@ accounts_put_args.add_argument("currency",type=str,help="Currency is required", 
 accounts_put_args.add_argument("accountType",type=str,help="Type is required", required=True)
 
 
-accounts_update_args = reqparse.RequestParser()
-accounts_update_args.add_argument("number",type=str,help="Number is required", required=True)
-accounts_update_args.add_argument("amount",type=int,help="Amount is required", required=True)
-accounts_update_args.add_argument("currency",type=str,help="Currency is required", required=True)
-accounts_update_args.add_argument("accountType",type=str,help="accountType is required", required=True)
-
-
-
 
 balance_update_args = reqparse.RequestParser()
 balance_update_args.add_argument("amount",type=int,help="Amount is required", required=True)
@@ -153,7 +145,7 @@ class Account(Resource):
 		args = balance_update_args.parse_args()
 		result = AccountsModel.query.filter_by(number=number).first()
 		if not result:
-			abort(404, message="Account doesn't exist, cannot update")
+			abort(404, message="Account doesn't exist, cannot deposit")
 
 
 		if args['amount']:
@@ -161,10 +153,7 @@ class Account(Resource):
 
 		db.session.commit()
 
-		return result, 200
-
-
-
+		return result,200
 
 
 
