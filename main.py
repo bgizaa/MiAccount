@@ -67,6 +67,14 @@ accounts_update_args.add_argument("amount",type=int,help="Amount is required", r
 accounts_update_args.add_argument("currency",type=str,help="Currency is required", required=True)
 accounts_update_args.add_argument("accountType",type=str,help="accountType is required", required=True)
 
+
+
+
+balance_update_args = reqparse.RequestParser()
+balance_update_args.add_argument("amount",type=int,help="Amount is required", required=True)
+
+
+
 resource_fields = {
     'email': fields.String,
 	'password': fields.String
@@ -139,6 +147,27 @@ class Account(Resource):
 		db.session.add(account)
 		db.session.commit()
 		return account, 201
+
+	@marshal_with(account_resource_fields)
+	def patch(self, number):
+		args = balance_update_args.parse_args()
+		result = AccountsModel.query.filter_by(number=number).first()
+		if not result:
+			abort(404, message="Account doesn't exist, cannot update")
+
+
+		if args['amount']:
+			result.amount = result.amount + args['amount']
+
+		db.session.commit()
+
+		return result, 200
+
+
+
+
+
+
 
 api.add_resource(User, "/user/<string:name>")
 api.add_resource(Account, "/account/<string:number>")
